@@ -1,5 +1,7 @@
+const moment = require("moment");
 const intercept = require("azure-function-log-intercept");
-const shared = require("../shared-folder/boostrap");
+const shared = require("../shared-folder");
+const PortfolioHelper = require("../shared-folder/helpers/portfolio-helper");
 
 module.exports = async function (context, myTimer) {
   // Use console normally
@@ -9,9 +11,11 @@ module.exports = async function (context, myTimer) {
     `> ${
       myTimer.isPastDue ? "[DELAY] " : ""
     }Start updating employee infomation on`,
-    new Date().toISOString()
+    moment().toISOString()
   );
+
   await shared.boostrap();
+  await PortfolioHelper.getByEmail();
   // End Logging
-  context.log(`End updating employee infomation on`, new Date().toISOString());
+  context.log(`> End updating employee infomation on`, moment().toISOString());
 };
