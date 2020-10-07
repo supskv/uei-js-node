@@ -1,4 +1,4 @@
-const moment = require("moment");
+const { DateTime } = require("luxon");
 
 const PortfolioHelper = require("./helpers/portfolio-helper");
 const db = require("./databases/providers");
@@ -120,9 +120,9 @@ const boostrap = async () => {
     //   console.log(`> processing ${i + 1}/${rows.length}`);
     // }
 
-    const rows = await getDataEmployees({
-      create_date: moment().format("YYYY-MM-DD"),
-    });
+    const create_date = DateTime.local().toFormat("yyyy-LL-dd");
+    const rows = await getDataEmployees({ create_date });
+    console.log(`> Fetching updated employee information on ${create_date}.`);
     for (let i = 0; i < rows.length; i++) {
       const eData = rows[i];
       await upsertPortDataToEmployee({

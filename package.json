@@ -10,7 +10,7 @@
     "axios": "^0.20.0",
     "azure-function-log-intercept": "^1.0.7",
     "dotenv": "^8.2.0",
-    "moment": "^2.29.1",
+    "luxon": "^1.25.0",
     "pg": "^8.4.0",
     "sequelize": "^6.3.5"
   },
