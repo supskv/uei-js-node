@@ -1,7 +1,10 @@
+require("dotenv").config();
 const { DateTime } = require("luxon");
 const intercept = require("azure-function-log-intercept");
-require("dotenv").config();
 
+/**
+ * Startup with boostrap function.
+ */
 const shared = require("../shared-folder");
 
 module.exports = async function (context, myTimer) {

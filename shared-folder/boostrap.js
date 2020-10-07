@@ -1,11 +1,11 @@
 const { DateTime } = require("luxon");
 
-const PortfolioHelper = require("./helpers/portfolio-helper");
 const db = require("./databases/providers");
+const PortfolioHelper = require("./helpers/portfolio-helper");
+const MailHelper = require("../shared-folder/helpers/mail-helper");
 
-// Model
+// Model & Function variables
 let Employee;
-// Function variables
 let inserted_count = 0;
 let updated_count = 0;
 let skipped_count = 0;
@@ -99,6 +99,7 @@ const boostrap = async () => {
     Employee = dbProperty.Employee;
   } catch (err) {
     console.error(`> Unable to connect to the database`, err);
+    await MailHelper.sendError(err);
     return;
   }
 
@@ -137,6 +138,7 @@ const boostrap = async () => {
     );
   } catch (err) {
     console.error(err);
+    await MailHelper.sendError(err);
   }
 };
 
